@@ -26,6 +26,6 @@ def main():
     for node in nodes:
         if(node.attrib["id"] in id_nodos):
             info_nodos[node.attrib["id"]] = [node.attrib["lat"],node.attrib["lon"]]
-    print(info_nodos)
+    print(info_nodos)##
 
 main()
