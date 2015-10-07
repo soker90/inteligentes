@@ -9,7 +9,7 @@ def main():
     #print(etree.tostring(doc,pretty_print=True ,xml_declaration=True, encoding="utf-8"))
     raiz=doc.getroot()
     ways=raiz.findall("way")
-    tipos = ["residential"]
+    tipos = ["residential","trunk","pedestrian"]
     id_nodos = [];
     for way in ways:
         if(not way.find('tag') is None):
