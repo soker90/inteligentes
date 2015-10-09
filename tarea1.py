@@ -37,16 +37,10 @@ def lectura():
 def grafo(tabla_nodos,ways):
     G=nx.Graph() #creamos el grafo
     G.add_nodes_from(list(tabla_nodos.keys()))
-
-
-
-
-
-
-
-
-
-
+    for way in ways:
+        for n in way.findall("nd"):
+            if(not iter(n.attrib["ref"]) is None):
+                G.add_edge(n.attrib["ref"],iter(n.attrib["ref"])) #añado la arista con el nodo y su iteración
 
 
 
