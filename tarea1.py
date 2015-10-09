@@ -35,6 +35,7 @@ def lectura():
 def grafo(tabla_nodos,ways):
     G=nx.Graph()
     G.add_nodes_from(tabla_nodos)
+    #
 
 
 
