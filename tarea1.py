@@ -12,10 +12,12 @@ def lectura():
     raiz=doc.getroot()
     ways=raiz.findall("way")
     tipos = ["residential","trunk","pedestrian"]
+    ways_sel = [] #filtro de caminos
     id_nodos = []
     for way in ways:
         if(not way.find('tag') is None):
             if(way.find('tag').attrib["k"] == "highway"  and way.find('tag').attrib["v"] in tipos):
+                ways_sel.append(way)
                 for n in way.findall("nd"):
                     id_nodos.append(n.attrib["ref"]) #Añade a la lista los nodos de las vias que cumplen los requisitos
 
@@ -28,13 +30,18 @@ def lectura():
     for node in nodes:
         if(node.attrib["id"] in id_nodos):
             info_nodos[node.attrib["id"]] = [node.attrib["lat"],node.attrib["lon"]]
-    print(info_nodos)
-    return info_nodos,ways
+
+    return info_nodos,ways_sel
 
 
 def grafo(tabla_nodos,ways):
-    G=nx.Graph()
-    G.add_nodes_from(tabla_nodos)
+    G=nx.Graph() #creamos el grafo
+    G.add_nodes_from(list(tabla_nodos.keys()))
+
+
+
+
+
 
 
 
