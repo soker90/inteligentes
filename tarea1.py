@@ -6,6 +6,7 @@ import math
 import distancia
 import networkx as nx
 
+
 from lxml import etree
 def lectura():
     doc = etree.parse('ciudadreal.osm')
@@ -37,10 +38,22 @@ def lectura():
 def grafo(tabla_nodos,ways):
     G=nx.Graph() #creamos el grafo
     G.add_nodes_from(list(tabla_nodos.keys()))
+
     for way in ways:
+        i=0
         for n in way.findall("nd"):
-            if(not iter(n.attrib["ref"]) is None):
-                G.add_edge(n.attrib["ref"],iter(n.attrib["ref"])) #añado la arista con el nodo y su iteración
+            if(len(way.findall("nd"))-1>i):
+                #print((way.findall("nd")[i]).attrib["ref"],":",(way.findall("nd")[i+1]).attrib["ref"])
+                G.add_edge((way.findall("nd")[i]).attrib["ref"],(way.findall("nd")[i+1]).attrib["ref"])
+                i=i+1
+
+
+
+
+
+
+
+
 
 
 
