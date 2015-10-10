@@ -6,7 +6,7 @@ import math
 def merc_x(lon):
   r_major=6378137.000
   return r_major*math.radians(lon)
- 
+
 def merc_y(lat):
   if lat>89.5:lat=89.5
   if lat<-89.5:lat=-89.5
@@ -27,9 +27,9 @@ def merc_y(lat):
 #Se obtiene sus proyecciones Mercator
 #y la distancia euclidea entre ellas
 def dist(p1lon,p1lat,p2lon,p2lat):
-	x1=merc_x(p1lon)
-	x2=merc_x(p2lon)
-	y1=merc_y(p1lat)
-	y2=merc_y(p2lat)
-	return sqrt((x1-x2)**2+(y1-y2)**2)
+	x1=merc_x(float(p1lon))
+	x2=merc_x(float(p2lon))
+	y1=merc_y(float(p1lat))
+	y2=merc_y(float(p2lat))
+	return math.sqrt((x1-x2)**2+(y1-y2)**2)
 
