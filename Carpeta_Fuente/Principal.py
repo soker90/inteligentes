@@ -1,11 +1,10 @@
 #!/usr/bin/python3
 
 import math
-import distancia
 
 import networkx as nx
 from lxml import etree
-from distancia import *
+import distancia
 
 def lectura():
     doc = etree.parse('ciudadreal.osm')
@@ -48,8 +47,18 @@ def grafo(tabla_nodos,ways):
                 nodo2Dat=tabla_nodos.get(nodo2)
                 #print((way.findall("nd")[i]).attrib["ref"],":",(way.findall("nd")[i+1]).attrib["ref"])
                 G.add_edge(nodo1,nodo2)
-                G.edge[nodo1][nodo2]['weight']= dist(nodo1Dat[1],nodo1Dat[0],nodo2Dat[1],nodo2Dat[0])
+                G.edge[nodo1][nodo2]['weight']= distancia.dist(nodo1Dat[1],nodo1Dat[0],nodo2Dat[1],nodo2Dat[0])
                 i=i+1
+    return G
+
+
+
 
 tabla_nodos,ways=lectura()
-grafo(tabla_nodos,ways)
+grafo=grafo(tabla_nodos,ways)
+print("nodos: " + str(grafo.nodes()))
+print("Inserte id de nodo")
+cadena = input()
+adyacentes=grafo.neighbors(cadena)
+print(str(adyacentes))
+
