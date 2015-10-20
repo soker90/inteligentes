@@ -43,6 +43,7 @@ class EspacioEstados():
             nodo1=Principal.tabla_nodos.get(estado.localizacion)
             nodo2=Principal.tabla_nodos.get(key)
             cuenta = [int(nodo1[0])-int(nodo2[0]),int(nodo1[1])-int(nodo2[1])]
+            accion = None
             if cuenta[0] > 0:
                 #latitud
                 O=1
@@ -50,8 +51,22 @@ class EspacioEstados():
                 E=1
 
             if cuenta [1] > 0:
+                #longitud
                 S = 1
             elif cuenta[1] < 0:
                 N = 1
 
+            if E == S:
 
+            elif E == N:
+
+            if O==S:
+
+            elif O==N:
+
+
+
+
+
+
+            sucesores.append([])
