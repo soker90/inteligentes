@@ -64,6 +64,8 @@ class EspacioEstados():
 
             elif O==N:
 
+                DAD
+
 
 
 
