@@ -17,7 +17,7 @@ class EspacioEstados():
 
 
     def valido(self, estado):
-        if self.estadoActual.localizacion in grafo.neighbors(estado.localizacion):
+        if self.estadoActual.localizacion in self.espacioEstados.neighbors(estado.localizacion):
             return True
         else:
             return False
@@ -30,8 +30,6 @@ class EspacioEstados():
 
     def sucesores(self,estado):
         sucesores=[]
-
-
 
         vecinos = self.espacioEstados.neighbors(estado.localizacion)
 
@@ -56,19 +54,23 @@ class EspacioEstados():
             elif cuenta[1] < 0:
                 N = 1
 
-            if E == S:
-
-            elif E == N:
-
-            if O==S:
-
-            elif O==N:
-
-                DAD
-
-
-
-
-
+            if O==1:
+                if N==1:
+                    accion=self.acciones[7]
+                if S==1:
+                    accion=self.acciones[5]
+                else:
+                    accion=self.acciones[6]
+            elif E==1:
+                if N==1:
+                    accion=self.acciones[1]
+                if S==1:
+                    accion=self.acciones[3]
+                else:
+                    accion=self.acciones[2]
+            elif N==1:
+                accion=self.acciones[0]
+            else:
+                accion=self.acciones[4]
 
             sucesores.append([])
