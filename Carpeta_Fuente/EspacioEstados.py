@@ -38,8 +38,9 @@ class EspacioEstados():
             S=0
             E=0
             O=0
-            nodo1=Principal.tabla_nodos.get(estado.localizacion)
-            nodo2=Principal.tabla_nodos.get(key)
+            tablas = Principal()
+            nodo1=tablas.tabla_nodos.get(estado.localizacion)
+            nodo2=tablas.tabla_nodos.get(key)
             cuenta = [int(nodo1[0])-int(nodo2[0]),int(nodo1[1])-int(nodo2[1])]
             accion = None
             if cuenta[0] > 0:
