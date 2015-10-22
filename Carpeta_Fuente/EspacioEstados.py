@@ -74,4 +74,7 @@ class EspacioEstados():
             else:
                 accion=self.acciones[4]
 
-            sucesores.append([])
+
+            costo=self.espacioEstados.edge[estado.localizacion][key]['weight']
+            sucesores.append((accion,Estado(key,self.espacioEstados.neighbors(key)),costo))
+        return sucesores

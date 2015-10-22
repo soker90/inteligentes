@@ -1,10 +1,8 @@
 #!/usr/bin/python3
 
-import math
-
+import distancia
 import networkx as nx
 from lxml import etree
-import distancia
 
 def lectura():
     doc = etree.parse('ciudadreal.osm')
@@ -61,4 +59,6 @@ print("Inserte id de nodo")
 cadena = input()
 adyacentes=grafo.neighbors(cadena)
 print(str(adyacentes))
+cadena2=input()
+print(grafo.edge[cadena][cadena2]['weight'])
 
