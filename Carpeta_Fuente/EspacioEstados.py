@@ -31,7 +31,7 @@ class EspacioEstados:
         sucesores=[]
 
         vecinos = self.espacioEstados.neighbors(estado.localizacion)
-
+        '''
         for key in vecinos:
             N=0
             S=0
@@ -79,5 +79,5 @@ class EspacioEstados:
             if key in estado.objetivos:
                 estado.objetivos.remove(key)
             sucesores.append((accion,Estado(key,estado.objetivos),costo))
-
+        '''
         return sucesores
