@@ -65,9 +65,9 @@ grafo=grafo(tabla_nodos,ways)
 #print(grafo.edge[cadena][cadena2]['weight'])
 
 
-estado = Estado(803292594,[814770929,2963385997,522198144])
+estado = Estado("803292594",["814770929","2963385997","522198144"])
 print("Sucesores de: " + str(estado))
 espacio = EspacioEstados(grafo)
-#suc = EspacioEstados.sucesores(estado)
-#for key in suc:
-#    print(key)
+suc = EspacioEstados.sucesores(espacio, estado)
+for key in suc:
+   print(key[0] + " " + key[1].__str__() + " " + str(key[2]) )

@@ -1,4 +1,4 @@
-from Estado import *
+from Estado import Estado
 import networkx as nx
 
 class EspacioEstados:
@@ -28,11 +28,29 @@ class EspacioEstados:
             return False
 
     def sucesores(self, estado):
-        sucesores=[]
+        sucesores = []
 
         vecinos = self.espacioEstados.neighbors(estado.localizacion)
-        '''
+
         for key in vecinos:
+            obj = []
+            accion = estado.localizacion + " -> " + key
+            costo=self.espacioEstados.edge[estado.localizacion][key]['weight']
+
+
+            for key2 in estado.objetivos:
+                if not(key2 == key):
+                    obj.append(key2)
+
+
+            print(obj)
+            sucesores.append((accion, Estado(key, obj), costo))
+
+        return sucesores
+
+
+
+        '''
             N=0
             S=0
             E=0
@@ -73,11 +91,4 @@ class EspacioEstados:
             else:
                 accion=self.acciones[4]
 
-
-            costo=self.espacioEstados.edge[estado.localizacion][key]['weight']
-
-            if key in estado.objetivos:
-                estado.objetivos.remove(key)
-            sucesores.append((accion,Estado(key,estado.objetivos),costo))
         '''
-        return sucesores
