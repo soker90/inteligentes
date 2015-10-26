@@ -1,5 +1,4 @@
 from Estado import *
-from Principal import *
 import networkx as nx
 
 class EspacioEstados:
@@ -28,7 +27,7 @@ class EspacioEstados:
         else:
             return False
 
-    def sucesores(self,estado):
+    def sucesores(self, estado):
         sucesores=[]
 
         vecinos = self.espacioEstados.neighbors(estado.localizacion)

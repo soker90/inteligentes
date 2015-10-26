@@ -2,8 +2,8 @@
 
 import distancia
 import networkx as nx
-from Estado import *
-from EspacioEstados import *
+from Estado import Estado
+from EspacioEstados import EspacioEstados
 from lxml import etree
 
 def lectura():
