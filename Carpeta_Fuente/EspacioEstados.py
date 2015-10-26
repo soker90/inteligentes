@@ -43,7 +43,6 @@ class EspacioEstados:
                     obj.append(key2)
 
 
-            print(obj)
             sucesores.append((accion, Estado(key, obj), costo))
 
         return sucesores

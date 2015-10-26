@@ -66,7 +66,7 @@ grafo=grafo(tabla_nodos,ways)
 
 
 estado = Estado("803292594",["814770929","2963385997","522198144"])
-print("Sucesores de: " + str(estado))
+print("Sucesores de: " + str(estado.localizacion) + " son: " + str(estado.objetivos))
 espacio = EspacioEstados(grafo)
 suc = EspacioEstados.sucesores(espacio, estado)
 for key in suc:
