@@ -1,4 +1,4 @@
-class Estado():
+class Estado:
     def __init__(self, localizacion, objetivos):
         self.localizacion=localizacion
         self.objetivos=objetivos

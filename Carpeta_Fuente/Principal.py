@@ -2,6 +2,7 @@
 
 import distancia
 import networkx as nx
+from Estado import Estado
 from lxml import etree
 
 def lectura():
@@ -54,11 +55,15 @@ def grafo(tabla_nodos,ways):
 
 tabla_nodos,ways=lectura()
 grafo=grafo(tabla_nodos,ways)
-print("nodos: " + str(grafo.nodes()))
-print("Inserte id de nodo")
-cadena = input()
-adyacentes=grafo.neighbors(cadena)
-print(str(adyacentes))
-cadena2=input()
-print(grafo.edge[cadena][cadena2]['weight'])
+#print("nodos: " + str(grafo.nodes()))
+#print("Inserte id de nodo")
+#cadena = input()
+#adyacentes=grafo.neighbors(cadena)
+#print(str(adyacentes))
+#cadena2=input()
+#print(grafo.edge[cadena][cadena2]['weight'])
+
+
+estado = Estado(803292594,[814770929,2963385997,522198144])
+print("Sucesores de: " + str(estado))
 
