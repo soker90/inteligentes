@@ -2,7 +2,8 @@
 
 import distancia
 import networkx as nx
-from Estado import Estado
+from Estado import *
+from EspacioEstados import *
 from lxml import etree
 
 def lectura():
@@ -66,4 +67,7 @@ grafo=grafo(tabla_nodos,ways)
 
 estado = Estado(803292594,[814770929,2963385997,522198144])
 print("Sucesores de: " + str(estado))
-
+espacio = EspacioEstados(grafo)
+suc = EspacioEstados.sucesores(estado)
+for key in suc:
+    print(key)
