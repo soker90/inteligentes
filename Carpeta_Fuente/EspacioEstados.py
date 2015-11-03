@@ -4,7 +4,7 @@ import networkx as nx
 class EspacioEstados:
     def __init__(self, grafo):
         self.espacioEstados = grafo
-        self.acciones=[["N",1,0],["NE",1,1],["E",0,1],["SE",-1,1],["S",-1,0],["SO",-1,-1],["O",0,-1],["NO",1,-1]]
+        #self.acciones=[["N",1,0],["NE",1,1],["E",0,1],["SE",-1,1],["S",-1,0],["SO",-1,-1],["O",0,-1],["NO",1,-1]]
 
         self.estadoActual= None
         self.estadoFin = None
@@ -34,7 +34,7 @@ class EspacioEstados:
 
         for key in vecinos:
             obj = []
-            accion = estado.localizacion + " -> " + key
+            accion = str(estado.localizacion) + " -> " + str(key)
             costo=self.espacioEstados.edge[estado.localizacion][key]['weight']
 
 

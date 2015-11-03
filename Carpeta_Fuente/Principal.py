@@ -5,8 +5,40 @@ import networkx as nx
 from Estado import Estado
 from EspacioEstados import EspacioEstados
 from lxml import etree
+import osmapi
 
 def lectura():
+    doc=osmapi.OsmApi().Map(-3.93201,38.98396,-3.92111,38.98875)
+    tipos = ["residential","trunk","pedestrian"]
+    ways=[]
+    ways_sel = []
+    id_nodos = []
+    nodos = []
+    for i in doc:
+        if(i['type']=="way"):
+            ways.append(i)
+        elif(i['type']=='node'):
+            nodos.append(i)
+
+
+    for way in ways:
+        if('highway' in way['data']['tag']):
+            if(way['data']['tag']['highway'] in tipos):
+                ways_sel.append(way)
+                for n in way['data']['nd']:
+                    id_nodos.append(n)
+
+    id_nodos = list(set(id_nodos))
+    info_nodos = {}
+
+    for node in nodos:
+        if(node['data']['id'] in id_nodos ):
+            info_nodos[node['data']['id']] = [node['data']['lat'],node['data']['lon']]
+
+
+    return info_nodos,ways_sel
+
+    '''
     doc = etree.parse('ciudadreal.osm')
     raiz=doc.getroot()
     ways=raiz.findall("way")
@@ -31,7 +63,7 @@ def lectura():
             info_nodos[node.attrib["id"]] = [node.attrib["lat"],node.attrib["lon"]]
 
     return info_nodos,ways_sel
-
+    '''
 
 def grafo(tabla_nodos,ways):
     G=nx.Graph() #creamos el grafo
@@ -39,10 +71,10 @@ def grafo(tabla_nodos,ways):
 
     for way in ways:
         i=0
-        for n in way.findall("nd"):
-            if(len(way.findall("nd"))-1>i):
-                nodo1=(way.findall("nd")[i]).attrib["ref"]
-                nodo2=(way.findall("nd")[i+1]).attrib["ref"]
+        for n in way['data']['nd']:
+            if(len(way['data']['nd'])-1>i):
+                nodo1=way['data']['nd'][i]
+                nodo2=way['data']['nd'][i+1]
                 nodo1Dat=tabla_nodos.get(nodo1)
                 nodo2Dat=tabla_nodos.get(nodo2)
                 #print((way.findall("nd")[i]).attrib["ref"],":",(way.findall("nd")[i+1]).attrib["ref"])
@@ -56,16 +88,16 @@ def grafo(tabla_nodos,ways):
 
 tabla_nodos,ways=lectura()
 grafo=grafo(tabla_nodos,ways)
-#print("nodos: " + str(grafo.nodes()))
-#print("Inserte id de nodo")
-#cadena = input()
-#adyacentes=grafo.neighbors(cadena)
-#print(str(adyacentes))
-#cadena2=input()
-#print(grafo.edge[cadena][cadena2]['weight'])
-
-
-estado = Estado("803292594",["814770929","2963385997","522198144"])
+'''
+print("nodos: " + str(grafo.nodes()))
+print("Inserte id de nodo")
+cadena = input()
+adyacentes=grafo.neighbors(int(cadena))
+print(str(adyacentes))
+cadena2=input()
+print(grafo.edge[cadena][cadena2]['weight'])
+'''
+estado = Estado(803292594,[814770929,2963385997,522198144])
 print("Sucesores de: " + str(estado.localizacion) + " son: " + str(estado.objetivos))
 espacio = EspacioEstados(grafo)
 suc = EspacioEstados.sucesores(espacio, estado)
