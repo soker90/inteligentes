@@ -1,5 +1,5 @@
 import Queue
-class Frontera():
+class Frontera:
     def __init__(self):
         self.lista = None
 
@@ -9,11 +9,15 @@ class Frontera():
     def Insertar(self,nodoArbol,valor):
         self.lista.put(valor,nodoArbol)
 
+    def InsertarLista(self, lis):
+        for x in lis:
+            self.lista.put(x.valor,x)
+
     def Elimina(self):
         return self.lista.pop(0)
 
     def EsVacia(self):
         if(self.lista.qsize() == 0):
-            return 0;
+            return True
         else:
-            return 1
+            return False

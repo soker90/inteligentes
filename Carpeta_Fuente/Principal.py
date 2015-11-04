@@ -5,7 +5,11 @@ import networkx as nx
 from Estado import Estado
 from EspacioEstados import EspacioEstados
 from Problema import Problema
+from frontera import Frontera
+from nodoBusqueda import nodoBusqueda
+
 import osmapi
+
 
 def lectura(espacio):
     doc=osmapi.OsmApi().Map(espacio.lonMin,espacio.latMin,espacio.lonMax,espacio.latMax)
@@ -83,8 +87,54 @@ def grafo(tabla_nodos,ways):
                 i=i+1
     return G
 
+def BusquedaBasica(problema, estrategia, maxProf):
+    frontera=Frontera()
+    frontera.CrearFrontera()
+    n_inicial=nodoBusqueda(0, None, problema.estadoInicial, 0,0,0)
+    frontera.Insertar(n_inicial,0)
+    solucion=False
+    while (not(solucion) and not(frontera.EsVacia())):
+        n_actual=frontera.Elimina()
+        if problema.EstadoMeta(n_actual):
+            solucion=True
+        else:
+            if n_actual.profundidad<maxProf:
+                LS=problema.espacioEstados.sucesores(n_actual.estado)
+                LN=CrearListaNodos(LS, n_actual, maxProf,estrategia)
+                frontera.InsertarLista(LN)
 
-def
+    if solucion==True:
+        return n_actual
+    else:
+        return None
+
+
+def CrearListaNodos(listaEstados, nodoAct, maxProf, estrategia):
+    ListaNodos=[]
+    id=nodoAct.id
+    padre=nodoAct
+    profundidad=nodoAct.profundidad+1
+
+    #Anchura, profundidad rsimple, profundidad acotada, profundidad iterativa y costo uniforme
+    if estrategia=='anchura':
+        valor=profundidad
+    elif estrategia=='CosteUniforme':
+        valor=nodoAct.costo
+    elif estrategia=='profundidad':
+        valor=nodoAct.profundidad
+
+
+
+    for e in listaEstados:
+        id=id+1
+        estado=e[1]
+        costo=e[2]
+        accion=e[0]
+
+        ListaNodos.append(nodoBusqueda(id,padre,estado, costo, accion, profundidad, valor))
+
+
+    return ListaNodos
 
 
 
