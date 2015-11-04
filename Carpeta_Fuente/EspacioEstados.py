@@ -9,8 +9,10 @@ class EspacioEstados:
         self.latMin=latMin
         self.lonMax=lonMax
         self.latMax=latMax
-        self.estadoActual= None
-        self.estadoFin = None
+        self.estadoFin=None
+        self.estadoActual=None
+
+
 
 
     def definirEstados(self,actual, fin):
@@ -19,7 +21,7 @@ class EspacioEstados:
 
 
     def valido(self, estado):
-        if self.estadoActual.localizacion in self.espacioEstados.neighbors(estado.localizacion):
+        if self.estadoActual.localizacion in self.neighbors(estado.localizacion):
             return True
         else:
             return False
@@ -30,15 +32,15 @@ class EspacioEstados:
         else:
             return False
 
-    def sucesores(self, estado):
+    def sucesores(self,grafo, estado):
         sucesores = []
 
-        vecinos = self.neighbors(estado.localizacion)
+        vecinos = grafo.neighbors(estado.localizacion)
 
         for key in vecinos:
             obj = []
             accion = str(estado.localizacion) + " -> " + str(key)
-            costo=self.edge[estado.localizacion][key]['weight']
+            costo=grafo.edge[estado.localizacion][key]['weight']
 
 
             for key2 in estado.objetivos:

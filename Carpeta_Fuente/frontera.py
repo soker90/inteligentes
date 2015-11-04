@@ -1,23 +1,23 @@
-import Queue
+import queue
+
 class Frontera:
     def __init__(self):
-        self.lista = None
+        self.lista = queue.PriorityQueue()
+    def Insertar(self,nodo):
+        print(nodo.__str__())
+        self.lista._put((nodo.valor,nodo))
 
-    def CrearFrontera(self):
-        self.lista = Queue.PriorityQueue()
-
-    def Insertar(self,nodoArbol,valor):
-        self.lista.put(valor,nodoArbol)
-
-    def InsertarLista(self, lis):
-        for x in lis:
-            self.lista.put(x.valor,x)
-
-    def Elimina(self):
-        return self.lista.pop(0)
+    def InsertarLista(self, LN):
+        for nodo in LN:
+            self.Insertar(nodo)
 
     def EsVacia(self):
-        if(self.lista.qsize() == 0):
+        if(self.lista.empty()):
             return True
         else:
             return False
+
+    def Elimina(self):
+        if(not(self.EsVacia())):
+            return self.lista._get()[1]
+

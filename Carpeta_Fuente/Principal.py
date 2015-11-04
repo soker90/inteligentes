@@ -42,32 +42,6 @@ def lectura(espacio):
 
     return info_nodos,ways_sel
 
-    '''
-    doc = etree.parse('ciudadreal.osm')
-    raiz=doc.getroot()
-    ways=raiz.findall("way")
-    tipos = ["residential","trunk","pedestrian"]
-    ways_sel = [] #filtro de caminos
-    id_nodos = []
-    for way in ways:
-        if(not way.find('tag') is None):
-            if(way.find('tag').attrib["k"] == "highway"  and way.find('tag').attrib["v"] in tipos):
-                ways_sel.append(way)
-                for n in way.findall("nd"):
-                    id_nodos.append(n.attrib["ref"]) #Añade a la lista los nodos de las vias que cumplen los requisitos
-
-
-    id_nodos = list(set(id_nodos)) #Quita los nodos duplicadosgg
-    nodes = raiz.findall("node")
-    info_nodos = {}
-
-    #Crea un diccionario con el id del nodo como key y con la latitud y la longitud de valores
-    for node in nodes:
-        if(node.attrib["id"] in id_nodos):
-            info_nodos[node.attrib["id"]] = [node.attrib["lat"],node.attrib["lon"]]
-
-    return info_nodos,ways_sel
-    '''
 
 def grafo(tabla_nodos,ways):
     G=nx.Graph() #creamos el grafo
@@ -87,61 +61,37 @@ def grafo(tabla_nodos,ways):
                 i=i+1
     return G
 
-def BusquedaBasica(problema, estrategia, maxProf):
+def BusquedaBasica(problema, estrategia, maxProf,grafo):
     frontera=Frontera()
-    frontera.CrearFrontera()
-    n_inicial=nodoBusqueda(0, None, problema.estadoInicial, 0,0,0)
-    frontera.Insertar(n_inicial,0)
+    n_inicial=nodoBusqueda(0, None, problema.estadoInicial, 0,None,0,0)
+    frontera.Insertar(n_inicial)
     solucion=False
+
     while (not(solucion) and not(frontera.EsVacia())):
+
         n_actual=frontera.Elimina()
-        if problema.EstadoMeta(n_actual):
+        if problema.EstadoMeta(n_actual.estado):
             solucion=True
         else:
-            if n_actual.profundidad<maxProf:
-                LS=problema.espacioEstados.sucesores(n_actual.estado)
-                LN=CrearListaNodos(LS, n_actual, maxProf,estrategia)
-                frontera.InsertarLista(LN)
+
+            LS=problema.espacioEstados.sucesores(grafo,n_actual.estado)
+            LN=problema.CrearListaNodos(LS, n_actual, maxProf,estrategia)
+            frontera.InsertarLista(LN)
+
 
     if solucion==True:
-        return n_actual
+        return problema.CrearSolucion(n_actual)
     else:
         return None
 
 
-def CrearListaNodos(listaEstados, nodoAct, maxProf, estrategia):
-    ListaNodos=[]
-    id=nodoAct.id
-    padre=nodoAct
-    profundidad=nodoAct.profundidad+1
-
-    #Anchura, profundidad rsimple, profundidad acotada, profundidad iterativa y costo uniforme
-    if estrategia=='anchura':
-        valor=profundidad
-    elif estrategia=='CosteUniforme':
-        valor=nodoAct.costo
-    elif estrategia=='profundidad':
-        valor=nodoAct.profundidad
-
-
-
-    for e in listaEstados:
-        id=id+1
-        estado=e[1]
-        costo=e[2]
-        accion=e[0]
-
-        ListaNodos.append(nodoBusqueda(id,padre,estado, costo, accion, profundidad, valor))
-
-
-    return ListaNodos
-
-
-
-
-
-
-
+def BusquedaIncremental(problema, estrategia, maxProf, incProf,grafo):
+    profActual = incProf
+    solucion=None
+    while( not(solucion) and profActual<=maxProf):
+        solucion = BusquedaBasica(problema,estrategia,maxProf,grafo)
+        profActual = profActual + incProf
+    return solucion
 
 
 
@@ -152,6 +102,13 @@ problema = Problema(EspacioEstados(-3.93201,38.98396,-3.92111,38.98875),Estado(8
 
 tabla_nodos,ways=lectura(problema.espacioEstados)
 grafo=grafo(tabla_nodos,ways)
+
+solucion = BusquedaBasica(problema,'profundidad', 10,grafo)
+print(solucion)
+
+
+
+
 '''
 print("nodos: " + str(grafo.nodes()))
 print("Inserte id de nodo")
