@@ -4,11 +4,11 @@ import distancia
 import networkx as nx
 from Estado import Estado
 from EspacioEstados import EspacioEstados
-from lxml import etree
+from Problema import Problema
 import osmapi
 
-def lectura():
-    doc=osmapi.OsmApi().Map(-3.93201,38.98396,-3.92111,38.98875)
+def lectura(espacio):
+    doc=osmapi.OsmApi().Map(espacio.lonMin,espacio.latMin,espacio.lonMax,espacio.latMax)
     tipos = ["residential","trunk","pedestrian"]
     ways=[]
     ways_sel = []
@@ -84,9 +84,9 @@ def grafo(tabla_nodos,ways):
     return G
 
 
+problema = Problema(EspacioEstados(-3.93201,38.98396,-3.92111,38.98875),Estado(803292594,[814770929,2963385997,522198144]))
 
-
-tabla_nodos,ways=lectura()
+tabla_nodos,ways=lectura(problema.espacioEstados)
 grafo=grafo(tabla_nodos,ways)
 '''
 print("nodos: " + str(grafo.nodes()))
@@ -97,9 +97,9 @@ print(str(adyacentes))
 cadena2=input()
 print(grafo.edge[cadena][cadena2]['weight'])
 '''
-estado = Estado(803292594,[814770929,2963385997,522198144])
-print("Sucesores de: " + str(estado.localizacion) + " son: " + str(estado.objetivos))
-espacio = EspacioEstados(grafo)
-suc = EspacioEstados.sucesores(espacio, estado)
+
+print("Sucesores de: " + str(problema.estadoInicial.localizacion) + " son: " + str(problema.estadoInicial.objetivos))
+#espacio = EspacioEstados(grafo)
+suc = EspacioEstados.sucesores(grafo, problema.estadoInicial)
 for key in suc:
    print(key[0] + " " + key[1].__str__() + " " + str(key[2]) )

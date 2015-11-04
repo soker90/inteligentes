@@ -1,9 +1,9 @@
 
-import nodoBusqueda
+
 
 class Problema():
 
-    def __init__(self,espacioEstados,estadoInicial,estadoObjetivo):
+    def __init__(self,espacioEstados,estadoInicial):
         self.espacioEstados = espacioEstados
-        self.estadocioInicial = estadoInicial
-        self.estadoObjetivo = estadoObjetivo
+        self.estadoInicial = estadoInicial
+        #self.estadoObjetivo = estadoObjetivo

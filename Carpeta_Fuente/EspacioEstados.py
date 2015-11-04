@@ -2,10 +2,13 @@ from Estado import Estado
 import networkx as nx
 
 class EspacioEstados:
-    def __init__(self, grafo):
-        self.espacioEstados = grafo
+    def __init__(self,lonMin,latMin,lonMax,latMax):
+        #self.espacioEstados = grafo
         #self.acciones=[["N",1,0],["NE",1,1],["E",0,1],["SE",-1,1],["S",-1,0],["SO",-1,-1],["O",0,-1],["NO",1,-1]]
-
+        self.lonMin=lonMin
+        self.latMin=latMin
+        self.lonMax=lonMax
+        self.latMax=latMax
         self.estadoActual= None
         self.estadoFin = None
 
@@ -30,12 +33,12 @@ class EspacioEstados:
     def sucesores(self, estado):
         sucesores = []
 
-        vecinos = self.espacioEstados.neighbors(estado.localizacion)
+        vecinos = self.neighbors(estado.localizacion)
 
         for key in vecinos:
             obj = []
             accion = str(estado.localizacion) + " -> " + str(key)
-            costo=self.espacioEstados.edge[estado.localizacion][key]['weight']
+            costo=self.edge[estado.localizacion][key]['weight']
 
 
             for key2 in estado.objetivos:
