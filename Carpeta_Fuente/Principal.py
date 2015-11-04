@@ -84,6 +84,20 @@ def grafo(tabla_nodos,ways):
     return G
 
 
+def
+
+
+
+
+
+
+
+
+
+
+
+
+
 problema = Problema(EspacioEstados(-3.93201,38.98396,-3.92111,38.98875),Estado(803292594,[814770929,2963385997,522198144]))
 
 tabla_nodos,ways=lectura(problema.espacioEstados)
@@ -96,10 +110,10 @@ adyacentes=grafo.neighbors(int(cadena))
 print(str(adyacentes))
 cadena2=input()
 print(grafo.edge[cadena][cadena2]['weight'])
-'''
 
 print("Sucesores de: " + str(problema.estadoInicial.localizacion) + " son: " + str(problema.estadoInicial.objetivos))
 #espacio = EspacioEstados(grafo)
 suc = EspacioEstados.sucesores(grafo, problema.estadoInicial)
 for key in suc:
    print(key[0] + " " + key[1].__str__() + " " + str(key[2]) )
+'''

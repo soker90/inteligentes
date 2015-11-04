@@ -1,5 +1,4 @@
-
-
+import espacioEstados
 
 class Problema():
 
@@ -7,3 +6,5 @@ class Problema():
         self.espacioEstados = espacioEstados
         self.estadoInicial = estadoInicial
         #self.estadoObjetivo = estadoObjetivo
+
+
