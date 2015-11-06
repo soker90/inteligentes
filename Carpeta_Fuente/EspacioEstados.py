@@ -27,7 +27,8 @@ class EspacioEstados:
             return False
 
     def objetivo(self,estado):
-        if estado == self.estadoFin:
+
+        if estado.objetivos.__sizeof__() == 40:
             return True
         else:
             return False

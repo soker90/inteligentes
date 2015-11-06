@@ -4,8 +4,7 @@ class Frontera:
     def __init__(self):
         self.lista = queue.PriorityQueue()
     def Insertar(self,nodo):
-        print(nodo.__str__())
-        self.lista._put((nodo.valor,nodo))
+        self.lista._put((nodo.valor,nodo.id,nodo))
 
     def InsertarLista(self, LN):
         for nodo in LN:
@@ -19,5 +18,5 @@ class Frontera:
 
     def Elimina(self):
         if(not(self.EsVacia())):
-            return self.lista._get()[1]
+            return self.lista._get()[2]
 

@@ -5,14 +5,16 @@ class Problema():
     def __init__(self,espacioEstados,estadoInicial):
         self.espacioEstados = espacioEstados
         self.estadoInicial = estadoInicial
+        self.contador=1
         #self.espacioEstados.definirEstados(estadoInicial, estadoObjetivo)
 
 
     def EstadoMeta(self,Estado):
+
         return self.espacioEstados.objetivo(Estado)
 
     def CrearListaNodos(self,listaSucesores, nodoAct, maxProf, estrategia):
-        contador=1
+
         ListaNodos=[]
 
         for e in listaSucesores:
@@ -25,13 +27,13 @@ class Problema():
             if estrategia=='anchura':
                 valor=nodoAct.profundidad+1
             elif estrategia=='CosteUniforme':
-                valor=nodoAct.costo+e[2]
+                valor=nodoAct.costo#+e[2]
             elif estrategia=='profundidad':
-                valor=float(1/(nodoAct.profundidad+1))
+                valor=float(1/(nodoAct.profundidad))
 
             if(nodoAct.profundidad < maxProf):
-                ListaNodos.append(nodoBusqueda(nodoAct.id+contador,nodoAct,e[1], (e[2]+nodoAct.costo), e[0], nodoAct.profundidad+1, valor))
-            contador+=1
+                ListaNodos.append(nodoBusqueda(self.contador, nodoAct,e[1], (e[2]+nodoAct.costo), e[0], nodoAct.profundidad+1, valor))
+            self.contador = self.contador + 1
 
         return ListaNodos
 
@@ -43,6 +45,7 @@ class Problema():
         while( not(nodo.padre==None)):
             NodosSolucion.append(nodo)
             nodo=nodo.padre
+        NodosSolucion.append(nodo)
 
         return NodosSolucion
 
