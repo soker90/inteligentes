@@ -1,4 +1,4 @@
-from EspacioEstados import EspacioEstados
+
 from nodoBusqueda import nodoBusqueda
 class Problema():
 
@@ -18,18 +18,13 @@ class Problema():
         ListaNodos=[]
 
         for e in listaSucesores:
-            '''
-            id=id+1
-            estado=e[1]
-            costo=e[2]
-            accion=e[0]
-            '''
+
             if estrategia=='anchura':
                 valor=nodoAct.profundidad+1
             elif estrategia=='CosteUniforme':
-                valor=nodoAct.costo#+e[2]
+                valor=nodoAct.costo+e[2]
             elif estrategia=='profundidad':
-                valor=float(1/(nodoAct.profundidad))
+                valor=(1/(nodoAct.profundidad+1))
 
             if(nodoAct.profundidad < maxProf):
                 ListaNodos.append(nodoBusqueda(self.contador, nodoAct,e[1], (e[2]+nodoAct.costo), e[0], nodoAct.profundidad+1, valor))

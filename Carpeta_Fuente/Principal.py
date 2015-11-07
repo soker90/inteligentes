@@ -91,7 +91,7 @@ def BusquedaIncremental(problema, estrategia, maxProf, incProf,grafo):
     profActual = incProf
     solucion=None
     while( not(solucion) and profActual<=maxProf):
-        solucion = BusquedaBasica(problema,estrategia,maxProf,grafo)
+        solucion = BusquedaBasica(problema,estrategia,profActual,grafo)
         profActual = profActual + incProf
     return solucion
 
@@ -99,15 +99,16 @@ def BusquedaIncremental(problema, estrategia, maxProf, incProf,grafo):
 
 
 
-problema = Problema(EspacioEstados(-3.93201,38.98396,-3.92111,38.98875),Estado(803292594,[814770929]))
+problema = Problema(EspacioEstados(-3.9524,38.9531,-3.8877,39.0086),Estado(828480073,[828479978,833754743]))
 
 tabla_nodos,ways=lectura(problema.espacioEstados)
 grafo=grafo(tabla_nodos,ways)
 
-solucion = BusquedaBasica(problema,'anchura', 10, grafo)
+solucion = BusquedaIncremental(problema,'profundidad', 100,2, grafo)
 
-for sol in solucion:
-    print(sol.__str__())
+with open("solucion.txt","w") as f:
+    for sol in solucion:
+        f.write(sol.__str__())
 
 
 
