@@ -6,7 +6,6 @@ class Problema():
         self.espacioEstados = espacioEstados
         self.estadoInicial = estadoInicial
         self.contador=1
-        #self.espacioEstados.definirEstados(estadoInicial, estadoObjetivo)
 
 
     def EstadoMeta(self,Estado):
