@@ -1,9 +1,5 @@
-EspacioEstados(-3.93201,38.98396,-3.92111,38.98875)
-
-Sucesores de: [803292594,[814770929,2963385997,522198144]]
-
-803292594->814770929,[814770929,[2963385997,522198144]],15.0290919401
-803292594->814770893,[814770893,[814770929,2963385997,522198144],12.2717270938
-803292594->814770770,[814770770,[814770929,2963385997,522198144],41,5515897878
-
-Los nodos que debemos visitar de un estado son los nodos objetivo del estado incial que nos quedan por visitar.
+Meter la heurística en la clase problema
+Encontrar la heurística admisible: La mejor es la máxima justo debajo de la h*
+Utilizar Poda con tabla hash de estados con su valor(minimo coste) para ello hacer una función poda(Nodo y Tabla hash) que te devuelve si o no.
+La funcion comprueba si el nodo está en la tabla, y si no está lo introducimos y le asignamos el valor del nodo y le añadimos que no se poda;
+en el caso de que esté en la tabla, buscamos su valor y si es menor significa que es mejor por lo que no lo podamos

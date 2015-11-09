@@ -99,12 +99,12 @@ def BusquedaIncremental(problema, estrategia, maxProf, incProf,grafo):
 
 
 
-problema = Problema(EspacioEstados(-3.9524,38.9531,-3.8877,39.0086),Estado(828480073,[828479978,833754743]))
+problema = Problema(EspacioEstados(-3.9326000,38.9836000,-3.9217000,38.98839000),Estado(812954564,[803292583,812954600]))
 
 tabla_nodos,ways=lectura(problema.espacioEstados)
 grafo=grafo(tabla_nodos,ways)
 
-solucion = BusquedaIncremental(problema,'profundidad', 100,2, grafo)
+solucion = BusquedaIncremental(problema,'profundidad', 50,50, grafo)
 
 with open("solucion.txt","w") as f:
     for sol in solucion:
