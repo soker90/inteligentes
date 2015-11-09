@@ -2,4 +2,7 @@ Meter la heurística en la clase problema
 Encontrar la heurística admisible: La mejor es la máxima justo debajo de la h*
 Utilizar Poda con tabla hash de estados con su valor(minimo coste) para ello hacer una función poda(Nodo y Tabla hash) que te devuelve si o no.
 La funcion comprueba si el nodo está en la tabla, y si no está lo introducimos y le asignamos el valor del nodo y le añadimos que no se poda;
-en el caso de que esté en la tabla, buscamos su valor y si es menor significa que es mejor por lo que no lo podamos
+en el caso de que esté en la tabla, buscamos su valor y si es menor significa que es mejor por lo que no lo podamos y actualizamos la lista con ese nodo
+Si no es menor, se poda ese nodo.
+Añadir complejidades espaciales y temporales en el problema
+Salida fichero gpx:incorporar estrategia utilizada
