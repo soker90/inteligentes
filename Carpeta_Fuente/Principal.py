@@ -55,7 +55,6 @@ def grafo(tabla_nodos,ways):
                 nodo2=way['data']['nd'][i+1]
                 nodo1Dat=tabla_nodos.get(nodo1)
                 nodo2Dat=tabla_nodos.get(nodo2)
-                #print((way.findall("nd")[i]).attrib["ref"],":",(way.findall("nd")[i+1]).attrib["ref"])
                 G.add_edge(nodo1,nodo2)
                 G.edge[nodo1][nodo2]['weight']= distancia.dist(nodo1Dat[1],nodo1Dat[0],nodo2Dat[1],nodo2Dat[0])
                 i=i+1
