@@ -10,4 +10,4 @@ class  nodoBusqueda():
 
 
     def __str__(self):
-        return(" Id: "+str(self.id)+" Valor: "+str(self.valor)+" Profundidad: "+str(self.profundidad)+ " Estado: " + self.estado.__str__() +"\n")
+        return(" Id: "+str(self.id)+" Valor: "+str(self.valor)+" Profundidad: "+str(self.profundidad)+ " Estado: " + self.estado.__str__() +" Costo: "+str(self.costo)+"\n")

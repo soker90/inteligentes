@@ -61,7 +61,7 @@ def grafo(tabla_nodos,ways):
                 i=i+1
     return G
 
-def BusquedaBasica(problema, estrategia, maxProf,grafo):
+def BusquedaBasica(problema, estrategia, maxProf,grafo,tabla_nodos):
     frontera=Frontera()
     n_inicial=nodoBusqueda(0, None, problema.estadoInicial, 0,None,0,0)
     frontera.Insertar(n_inicial)
@@ -75,7 +75,7 @@ def BusquedaBasica(problema, estrategia, maxProf,grafo):
         else:
 
             LS=problema.espacioEstados.sucesores(grafo,n_actual.estado)
-            LN=problema.CrearListaNodos(LS, n_actual, maxProf,estrategia)
+            LN=problema.CrearListaNodos(LS, n_actual, maxProf,estrategia,tabla_nodos)
             frontera.InsertarLista(LN)
 
 
@@ -87,11 +87,11 @@ def BusquedaBasica(problema, estrategia, maxProf,grafo):
         return None
 
 
-def BusquedaIncremental(problema, estrategia, maxProf, incProf,grafo):
+def BusquedaIncremental(problema, estrategia, maxProf, incProf,grafo,tabla_nodos):
     profActual = incProf
     solucion=None
     while( not(solucion) and profActual<=maxProf):
-        solucion = BusquedaBasica(problema,estrategia,profActual,grafo)
+        solucion = BusquedaBasica(problema,estrategia,profActual,grafo,tabla_nodos)
         profActual = profActual + incProf
     return solucion
 
@@ -104,7 +104,12 @@ problema = Problema(EspacioEstados(-3.9326000,38.9836000,-3.9217000,38.98839000)
 tabla_nodos,ways=lectura(problema.espacioEstados)
 grafo=grafo(tabla_nodos,ways)
 
-solucion = BusquedaIncremental(problema,'profundidad', 50,50, grafo)
+
+solucion = BusquedaIncremental(problema,'A', 50,50, grafo,tabla_nodos)
+
+solucion.reverse()
+
+
 
 with open("solucion.txt","w") as f:
     for sol in solucion:
