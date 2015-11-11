@@ -27,6 +27,7 @@ class Problema():
             elif estrategia=='profundidad':
                 valor=(1/(nodoAct.profundidad+1))
             elif estrategia=='voraz':
+                print("nuevo estado")
                 valor=self.Heuristica(nodoAct.estado,tabla_nodos)
             elif estrategia=='A':
                 valor=(nodoAct.costo+e[2]) + self.Heuristica(nodoAct.estado,tabla_nodos)
@@ -52,12 +53,9 @@ class Problema():
 
     def Heuristica(self,estado,tabla_nodos):
         origen = tabla_nodos.get(estado.localizacion)
-        heuristica=0
+        costes=[]
         for objetivo in estado.objetivos:
             destino = tabla_nodos.get(objetivo)
-            costo = distancia.dist(origen[1],origen[0],destino[1],destino[0])
-            if(costo>heuristica):
-                heuristica=costo
-
-        print(heuristica)
-        return heuristica
+            costes.append(distancia.dist(origen[1],origen[0],destino[1],destino[0]))
+        print(max(costes))
+        return max(costes)

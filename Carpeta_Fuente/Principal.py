@@ -105,7 +105,7 @@ tabla_nodos,ways=lectura(problema.espacioEstados)
 grafo=grafo(tabla_nodos,ways)
 
 
-solucion = BusquedaIncremental(problema,'A', 50,50, grafo,tabla_nodos)
+solucion = BusquedaIncremental(problema,'voraz', 50,50, grafo,tabla_nodos)
 
 solucion.reverse()
 
