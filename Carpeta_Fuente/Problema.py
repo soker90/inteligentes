@@ -9,13 +9,16 @@ class Problema():
         self.estadoInicial = estadoInicial
         self.contador=1
         self.lista_valores={}
+        self.tabla = {}
+
+
 
 
     def EstadoMeta(self,Estado):
 
         return self.espacioEstados.objetivo(Estado)
 
-    def CrearListaNodos(self,listaSucesores, nodoAct, maxProf, estrategia,tabla_nodos):
+    def CrearListaNodos(self,listaSucesores, nodoAct, maxProf, estrategia, tabla_nodos):
 
         ListaNodos=[]
         podar=False
@@ -29,15 +32,16 @@ class Problema():
             elif estrategia=='profundidad':
                 valor=(1/(nodoAct.profundidad+1))
             elif estrategia=='voraz':
-                valor=self.Heuristica(nodoAct.estado,tabla_nodos)
+                valor=self.Heuristica(nodoAct.estado, tabla_nodos)
                 podar=self.poda(nodoAct)
             elif estrategia=='A':
-                valor=(nodoAct.costo+e[2]) + self.Heuristica(nodoAct.estado,tabla_nodos)
+                valor=(nodoAct.costo+e[2]) + self.Heuristica(nodoAct.estado, tabla_nodos)
                 podar=self.poda(nodoAct)
 
             if(nodoAct.profundidad < maxProf and podar==False):
-                print("añade")
-                ListaNodos.append(nodoBusqueda(self.contador, nodoAct,e[1], (e[2]+nodoAct.costo), e[0], nodoAct.profundidad+1, valor))
+                print(e[1].__str__())
+                ListaNodos.append(nodoBusqueda(self.contador, nodoAct, e[1], (e[2]+nodoAct.costo), e[0], nodoAct.profundidad+1, valor))
+
             self.contador = self.contador + 1
 
         return ListaNodos
@@ -54,15 +58,29 @@ class Problema():
 
         return NodosSolucion
 
+
+
+    def poda(self, nodo):
+        if not(nodo in self.tabla.keys()):
+            return False
+            self.tabla[nodo.estado.localizacion] = nodo.valor
+        elif (self.tabla[nodo.estado.localizacion] < nodo.valor):
+            return True
+        else:
+            self.tabla [nodo.estado.localizacion] = nodo.valor
+            return False
+
+
+
     def Heuristica(self,estado,tabla_nodos):
         origen = tabla_nodos.get(estado.localizacion)
         costes=[]
         for objetivo in estado.objetivos:
             destino = tabla_nodos.get(objetivo)
             costes.append(distancia.dist(origen[1],origen[0],destino[1],destino[0]))
-        print(max(costes))
         return max(costes)
 
+'''
     def poda(self,nodo):
         print(nodo.estado.localizacion)
         if not(nodo.estado in self.lista_valores.keys()):
@@ -79,5 +97,5 @@ class Problema():
             else:
                 print("Si poda")
                 return True
-
+'''
 

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+from time import time
 import distancia
 import networkx as nx
 from Estado import Estado
@@ -60,7 +60,7 @@ def grafo(tabla_nodos,ways):
                 i=i+1
     return G
 
-def BusquedaBasica(problema, estrategia, maxProf,grafo,tabla_nodos):
+def BusquedaBasica(problema, estrategia, maxProf,grafo, tabla_nodos):
     frontera=Frontera()
     n_inicial=nodoBusqueda(0, None, problema.estadoInicial, 0,None,0,0)
     frontera.Insertar(n_inicial)
@@ -74,7 +74,7 @@ def BusquedaBasica(problema, estrategia, maxProf,grafo,tabla_nodos):
         else:
 
             LS=problema.espacioEstados.sucesores(grafo,n_actual.estado)
-            LN=problema.CrearListaNodos(LS, n_actual, maxProf,estrategia,tabla_nodos)
+            LN=problema.CrearListaNodos(LS, n_actual, maxProf,estrategia, tabla_nodos)
             frontera.InsertarLista(LN)
 
 
@@ -86,11 +86,11 @@ def BusquedaBasica(problema, estrategia, maxProf,grafo,tabla_nodos):
         return None
 
 
-def BusquedaIncremental(problema, estrategia, maxProf, incProf,grafo,tabla_nodos):
+def BusquedaIncremental(problema, estrategia, maxProf, incProf,grafo, tabla_nodos):
     profActual = incProf
     solucion=None
     while( not(solucion) and profActual<=maxProf):
-        solucion = BusquedaBasica(problema,estrategia,profActual,grafo,tabla_nodos)
+        solucion = BusquedaBasica(problema,estrategia,profActual,grafo, tabla_nodos)
         profActual = profActual + incProf
     return solucion
 
@@ -103,9 +103,12 @@ problema = Problema(EspacioEstados(-3.9326000,38.9836000,-3.9217000,38.98839000)
 tabla_nodos,ways=lectura(problema.espacioEstados)
 grafo=grafo(tabla_nodos,ways)
 
+start_time = time()
 
-solucion = BusquedaIncremental(problema,'voraz', 50,50, grafo,tabla_nodos)
+solucion = BusquedaIncremental(problema,'voraz', 50,50, grafo, tabla_nodos)
 
+elapsed_time = time() - start_time
+print("El tiempo de ejecucion es: " + str(elapsed_time))
 solucion.reverse()
 
 
