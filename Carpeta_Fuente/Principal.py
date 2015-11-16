@@ -103,7 +103,7 @@ grafo=grafo(tabla_nodos,ways)
 
 
 start_time = time()
-solucion = BusquedaIncremental(problema,'A', 50,50, grafo, tabla_nodos)
+solucion = BusquedaIncremental(problema,'CosteUniforme', 50,50, grafo, tabla_nodos)
 elapsed_time = time() - start_time
 
 
@@ -115,7 +115,7 @@ print("El tiempo de ejecucion es: " + str(elapsed_time))
 
 if not(solucion == None):
     solucion.reverse()
-    print("La complejidad espacial es: " + str(solucion[len(solucion)-1].id))
+    print("La complejidad espacial es: " + str(problema.contador))
 
 
     with open("solucion.txt","w") as f:

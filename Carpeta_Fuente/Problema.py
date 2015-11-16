@@ -32,12 +32,12 @@ class Problema():
                 podar=self.poda(nodoAct)
             elif estrategia=='profundidad':
                 valor=(1/(nodoAct.profundidad+1))
-
+                podar=self.poda(nodoAct)
             elif estrategia=='voraz':
                 valor=self.Heuristica(nodoAct.estado, tabla_nodos)
                 podar=self.poda(nodoAct)
             elif estrategia=='A':
-                valor=(nodoAct.costo+e[2]) + self.Heuristica(nodoAct.estado, tabla_nodos)
+                valor=nodoAct.costo+ e[2] + self.Heuristica(nodoAct.estado, tabla_nodos)
                 podar=self.poda(nodoAct)
 
             if(nodoAct.profundidad < maxProf and podar==False):
