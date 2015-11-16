@@ -40,7 +40,7 @@ class Problema():
                 podar=self.poda(nodoAct)
             if(nodoAct.profundidad < maxProf and podar==False):
                 ListaNodos.append(nodoBusqueda(self.contador, nodoAct, e[1], (e[2]+nodoAct.costo), e[0], nodoAct.profundidad+1, valor))
-                print(self.contador)
+
             self.contador = self.contador + 1
 
         return ListaNodos
