@@ -102,10 +102,16 @@ problema = Problema(EspacioEstados(-3.9326000,38.9836000,-3.9217000,38.98839000)
 tabla_nodos,ways=lectura(problema.espacioEstados)
 grafo=grafo(tabla_nodos,ways)
 
+
 start_time = time()
-solucion = BusquedaIncremental(problema,'A', 50,50, grafo, tabla_nodos)
+solucion = BusquedaIncremental(problema,'CosteUniforme', 50,50, grafo, tabla_nodos)
 elapsed_time = time() - start_time
+
+
 print("El tiempo de ejecucion es: " + str(elapsed_time))
+print("La complejidad espacial es: " + str(problema.contador))
+
+
 
 if not(solucion == None):
     solucion.reverse()
