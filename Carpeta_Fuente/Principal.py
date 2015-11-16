@@ -109,13 +109,13 @@ elapsed_time = time() - start_time
 
 
 print("El tiempo de ejecucion es: " + str(elapsed_time))
-print("La complejidad espacial es: " + str(problema.contador))
+
 
 
 
 if not(solucion == None):
     solucion.reverse()
-
+    print("La complejidad espacial es: " + str(solucion[len(solucion)-1].id))
 
 
     with open("solucion.txt","w") as f:
