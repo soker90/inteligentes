@@ -22,6 +22,7 @@ class Problema():
 
         ListaNodos=[]
         podar=False
+        valor=0
         for e in listaSucesores:
             if estrategia=='anchura':
                 valor=nodoAct.profundidad+1
@@ -38,15 +39,15 @@ class Problema():
             elif estrategia=='A':
                 valor=(nodoAct.costo+e[2]) + self.Heuristica(nodoAct.estado, tabla_nodos)
                 podar=self.poda(nodoAct)
+
             if(nodoAct.profundidad < maxProf and podar==False):
                 ListaNodos.append(nodoBusqueda(self.contador, nodoAct, e[1], (e[2]+nodoAct.costo), e[0], nodoAct.profundidad+1, valor))
-                print(e[1])
+
             self.contador = self.contador + 1
 
         return ListaNodos
 
     def CrearSolucion(self,nodoAct):
-
         NodosSolucion = []
         NodosSolucion.append(nodoAct)
         nodo=nodoAct.padre
@@ -60,9 +61,11 @@ class Problema():
 
 
     def poda(self, nodo):
+
         if not(nodo.estado.__str__() in self.tabla.keys()):
             self.tabla[nodo.estado.__str__()] = nodo.valor
             return False
+
         elif (self.tabla.get(nodo.estado.__str__()) < nodo.valor):
             return True
         else:
@@ -77,7 +80,7 @@ class Problema():
         for objetivo in estado.objetivos:
             destino = tabla_nodos.get(objetivo)
             costes.append(distancia.dist(origen[1],origen[0],destino[1],destino[0]))
-        return max(costes)
+        return min(costes)
 
 
 

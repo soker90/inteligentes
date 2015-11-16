@@ -70,7 +70,6 @@ def BusquedaBasica(problema, estrategia, maxProf,grafo, tabla_nodos):
     while (not(solucion) and not(frontera.EsVacia())):
 
         n_actual=frontera.Elimina()
-
         if problema.EstadoMeta(n_actual.estado):
             solucion=True
         else:
@@ -106,6 +105,7 @@ grafo=grafo(tabla_nodos,ways)
 start_time = time()
 solucion = BusquedaIncremental(problema,'A', 50,50, grafo, tabla_nodos)
 elapsed_time = time() - start_time
+
 
 
 print("El tiempo de ejecucion es: " + str(elapsed_time))
