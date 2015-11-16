@@ -104,7 +104,7 @@ grafo=grafo(tabla_nodos,ways)
 
 
 start_time = time()
-solucion = BusquedaIncremental(problema,'CosteUniforme', 50,50, grafo, tabla_nodos)
+solucion = BusquedaIncremental(problema,'A', 50,50, grafo, tabla_nodos)
 elapsed_time = time() - start_time
 
 
@@ -122,7 +122,8 @@ if not(solucion == None):
         for sol in solucion:
             f.write(sol.__str__())
 
-
+else:
+    print("no hay solucion")
 
 
 '''

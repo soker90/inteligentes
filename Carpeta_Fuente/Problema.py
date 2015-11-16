@@ -40,7 +40,7 @@ class Problema():
                 podar=self.poda(nodoAct)
             if(nodoAct.profundidad < maxProf and podar==False):
                 ListaNodos.append(nodoBusqueda(self.contador, nodoAct, e[1], (e[2]+nodoAct.costo), e[0], nodoAct.profundidad+1, valor))
-
+                print(e[1])
             self.contador = self.contador + 1
 
         return ListaNodos
@@ -63,7 +63,7 @@ class Problema():
         if not(nodo.estado.__str__() in self.tabla.keys()):
             self.tabla[nodo.estado.__str__()] = nodo.valor
             return False
-        elif (self.tabla.get(nodo.estado.__str__()) <= nodo.valor):
+        elif (self.tabla.get(nodo.estado.__str__()) < nodo.valor):
             return True
         else:
             self.tabla[nodo.estado.__str__()] = nodo.valor
@@ -79,22 +79,5 @@ class Problema():
             costes.append(distancia.dist(origen[1],origen[0],destino[1],destino[0]))
         return max(costes)
 
-'''
-    def poda(self,nodo):
-        print(nodo.estado.localizacion)
-        if not(nodo.estado in self.lista_valores.keys()):
-            self.lista_valores[nodo.estado.__str__()]=nodo.valor
-            print(self.lista_valores)
-            print("no esta en la lista y no poda")
-            return False
 
-        else:
-            if(nodo.valor<self.lista_valores[nodo.estado.__str__()]):
-                self.lista_valores[nodo.estado.__str__()]=nodo.valor
-                print("actualiza y no poda")
-                return False
-            else:
-                print("Si poda")
-                return True
-'''
 
