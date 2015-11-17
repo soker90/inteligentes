@@ -46,7 +46,7 @@ def lectura(espacio):
 
 def grafo(tabla_nodos,ways):
     G=nx.Graph() #creamos el grafo
-    G.add_nodes_from(list(tabla_nodos.keys()))
+    #G.add_nodes_from(list(tabla_nodos.keys()))
 
     for way in ways:
         i=0
@@ -56,12 +56,18 @@ def grafo(tabla_nodos,ways):
                 nodo2=way['data']['nd'][i+1]
                 nodo1Dat=tabla_nodos.get(nodo1)
                 nodo2Dat=tabla_nodos.get(nodo2)
+                G.add_node(nodo1)
+                G.node[nodo1]['lat']= nodo1Dat[0]
+                G.node[nodo1]['lon']= nodo1Dat[1]
+                G.add_node(nodo2)
+                G.node[nodo2]['lat']= nodo2Dat[0]
+                G.node[nodo2]['lon']= nodo2Dat[1]
                 G.add_edge(nodo1,nodo2)
                 G.edge[nodo1][nodo2]['weight']= distancia.dist(nodo1Dat[1],nodo1Dat[0],nodo2Dat[1],nodo2Dat[0])
                 i=i+1
     return G
 
-def BusquedaBasica(problema, estrategia, maxProf,grafo, tabla_nodos):
+def BusquedaBasica(problema, estrategia, maxProf,grafo):
     frontera=Frontera()
     n_inicial=nodoBusqueda(0, None, problema.estadoInicial, 0,None,0,0)
     frontera.Insertar(n_inicial)
@@ -72,50 +78,49 @@ def BusquedaBasica(problema, estrategia, maxProf,grafo, tabla_nodos):
         n_actual=frontera.Elimina()
         if problema.EstadoMeta(n_actual.estado):
             solucion=True
+            n_solucion=n_actual
         else:
 
             LS=problema.espacioEstados.sucesores(grafo,n_actual.estado)
-            LN=problema.CrearListaNodos(LS, n_actual, maxProf,estrategia, tabla_nodos)
+            LN=problema.CrearListaNodos(LS, n_actual, maxProf,estrategia, grafo)
             frontera.InsertarLista(LN)
 
     if solucion==True:
-        return problema.CrearSolucion(n_actual)
+        return problema.CrearSolucion(n_solucion)
     else:
         return None
 
 
-def BusquedaIncremental(problema, estrategia, maxProf, incProf,grafo, tabla_nodos):
+def BusquedaIncremental(problema, estrategia, maxProf, incProf,grafo):
     profActual = incProf
     solucion=None
     while( not(solucion) and profActual<=maxProf):
-        solucion = BusquedaBasica(problema,estrategia,profActual,grafo, tabla_nodos)
+        solucion = BusquedaBasica(problema,estrategia,profActual,grafo)
         profActual = profActual + incProf
     return solucion
 
 
 
 
-
-problema = Problema(EspacioEstados(-3.9326000,38.9836000,-3.9217000,38.98839000),Estado(812954564,[803292583,812954600]))
-
-tabla_nodos,ways=lectura(problema.espacioEstados)
+espacioEstados=EspacioEstados(-3.9326000,38.9836000,-3.9217000,38.98839000)
+tabla_nodos,ways=lectura(espacioEstados)
 grafo=grafo(tabla_nodos,ways)
+problema = Problema(espacioEstados, Estado(812954564,[803292583,812954600],grafo.node[812954564]['lat'],grafo.node[812954564]['lon']))
 
+del(tabla_nodos)
 
 start_time = time()
-solucion = BusquedaIncremental(problema,'CosteUniforme', 50,50, grafo, tabla_nodos)
+solucion = BusquedaIncremental(problema,'A', 50,50, grafo)
 elapsed_time = time() - start_time
 
 
 
 print("El tiempo de ejecucion es: " + str(elapsed_time))
-
-
+print("La complejidad espacial es: " + str(problema.contador))
 
 
 if not(solucion == None):
     solucion.reverse()
-    print("La complejidad espacial es: " + str(problema.contador))
 
 
     with open("solucion.txt","w") as f:

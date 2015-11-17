@@ -8,7 +8,6 @@ class Problema():
         self.espacioEstados = espacioEstados
         self.estadoInicial = estadoInicial
         self.contador=1
-        self.lista_valores={}
         self.tabla = {}
 
 
@@ -18,7 +17,7 @@ class Problema():
 
         return self.espacioEstados.objetivo(Estado)
 
-    def CrearListaNodos(self,listaSucesores, nodoAct, maxProf, estrategia, tabla_nodos):
+    def CrearListaNodos(self,listaSucesores, nodoAct, maxProf, estrategia, grafo):
 
         ListaNodos=[]
         podar=False
@@ -29,18 +28,19 @@ class Problema():
                 podar=self.poda(nodoAct)
             elif estrategia=='CosteUniforme':
                 valor=nodoAct.costo+e[2]
-                podar=self.poda(nodoAct)
+                #podar=self.poda(nodoAct)
             elif estrategia=='profundidad':
                 valor=(1/(nodoAct.profundidad+1))
                 podar=self.poda(nodoAct)
             elif estrategia=='voraz':
-                valor=self.Heuristica(nodoAct.estado, tabla_nodos)
+                valor=self.Heuristica(nodoAct.estado, grafo)
                 podar=self.poda(nodoAct)
             elif estrategia=='A':
-                valor=nodoAct.costo+ e[2] + self.Heuristica(nodoAct.estado, tabla_nodos)
+                valor=nodoAct.costo+ e[2] + self.Heuristica(nodoAct.estado, grafo)
                 podar=self.poda(nodoAct)
 
-            if(nodoAct.profundidad < maxProf and podar==False):
+            if((nodoAct.profundidad < maxProf) and (podar==False)):
+
                 ListaNodos.append(nodoBusqueda(self.contador, nodoAct, e[1], (e[2]+nodoAct.costo), e[0], nodoAct.profundidad+1, valor))
 
             self.contador = self.contador + 1
@@ -62,11 +62,12 @@ class Problema():
 
     def poda(self, nodo):
 
-        if not(nodo.estado.__str__() in self.tabla.keys()):
+        if not(nodo.estado in self.tabla.keys()):
             self.tabla[nodo.estado.__str__()] = nodo.valor
             return False
 
-        elif (self.tabla.get(nodo.estado.__str__()) < nodo.valor):
+        elif self.tabla.get(nodo.estado.__str__()) <= nodo.valor:
+            print(nodo.estado.__str__())
             return True
         else:
             self.tabla[nodo.estado.__str__()] = nodo.valor
@@ -74,13 +75,11 @@ class Problema():
 
 
 
-    def Heuristica(self,estado,tabla_nodos):
-        origen = tabla_nodos.get(estado.localizacion)
+    def Heuristica(self,estado, grafo):
         costes=[]
         for objetivo in estado.objetivos:
-            destino = tabla_nodos.get(objetivo)
-            costes.append(distancia.dist(origen[1],origen[0],destino[1],destino[0]))
-        return min(costes)
+            costes.append(distancia.dist(estado.lon,estado.lat,grafo.node[objetivo]['lon'],grafo.node[objetivo]['lat']))
+        return max(costes)
 
 
 

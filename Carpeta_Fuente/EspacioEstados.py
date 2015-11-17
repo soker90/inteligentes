@@ -34,14 +34,15 @@ class EspacioEstados:
             obj = []
             accion = str(estado.localizacion) + " -> " + str(key)
             costo=grafo.edge[estado.localizacion][key]['weight']
-
+            lat=grafo.node[key]['lat']
+            lon=grafo.node[key]['lon']
 
             for key2 in estado.objetivos:
                 if not(key2 == key):
                     obj.append(key2)
 
 
-            sucesores.append([accion, Estado(key, obj), costo])
+            sucesores.append([accion, Estado(key, obj, lat, lon), costo])
 
         return sucesores
 
