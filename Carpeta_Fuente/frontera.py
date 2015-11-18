@@ -4,7 +4,7 @@ class Frontera:
     def __init__(self):
         self.lista = queue.PriorityQueue()
     def Insertar(self,nodo):
-        self.lista._put((nodo.valor,nodo.id,nodo))
+        self.lista._put([nodo.valor, nodo.id, nodo])
 
     def InsertarLista(self, LN):
         for nodo in LN:

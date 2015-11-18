@@ -25,24 +25,23 @@ class Problema():
         for e in listaSucesores:
             if estrategia=='anchura':
                 valor=nodoAct.profundidad+1
-                podar=self.poda(nodoAct)
+                podar=self.poda(e[1], valor)
             elif estrategia=='CosteUniforme':
                 valor=nodoAct.costo+e[2]
-                #podar=self.poda(nodoAct)
+                podar=self.poda(e[1], valor)
             elif estrategia=='profundidad':
                 valor=(1/(nodoAct.profundidad+1))
-                podar=self.poda(nodoAct)
+                podar=self.poda(e[1], valor)
             elif estrategia=='voraz':
                 valor=self.Heuristica(nodoAct.estado, grafo)
-                podar=self.poda(nodoAct)
+                podar=self.poda(e[1], valor)
             elif estrategia=='A':
                 valor=nodoAct.costo+ e[2] + self.Heuristica(nodoAct.estado, grafo)
-                podar=self.poda(nodoAct)
+                podar=self.poda(e[1], valor)
 
             if((nodoAct.profundidad < maxProf) and (podar==False)):
 
                 ListaNodos.append(nodoBusqueda(self.contador, nodoAct, e[1], (e[2]+nodoAct.costo), e[0], nodoAct.profundidad+1, valor))
-
             self.contador = self.contador + 1
 
         return ListaNodos
@@ -60,17 +59,15 @@ class Problema():
 
 
 
-    def poda(self, nodo):
-
-        if not(nodo.estado in self.tabla.keys()):
-            self.tabla[nodo.estado.__str__()] = nodo.valor
+    def poda(self,e, valor):
+        if not(e.__str__() in self.tabla.keys()):
+            self.tabla[e.__str__()] = valor
             return False
 
-        elif self.tabla.get(nodo.estado.__str__()) <= nodo.valor:
-            print(nodo.estado.__str__())
+        elif self.tabla.get(e.__str__()) <= valor:
             return True
         else:
-            self.tabla[nodo.estado.__str__()] = nodo.valor
+            self.tabla[e.__str__()] = valor
             return False
 
 

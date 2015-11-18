@@ -80,12 +80,12 @@ def BusquedaBasica(problema, estrategia, maxProf,grafo):
             solucion=True
             n_solucion=n_actual
         else:
-
             LS=problema.espacioEstados.sucesores(grafo,n_actual.estado)
             LN=problema.CrearListaNodos(LS, n_actual, maxProf,estrategia, grafo)
             frontera.InsertarLista(LN)
 
     if solucion==True:
+
         return problema.CrearSolucion(n_solucion)
     else:
         return None
@@ -94,9 +94,10 @@ def BusquedaBasica(problema, estrategia, maxProf,grafo):
 def BusquedaIncremental(problema, estrategia, maxProf, incProf,grafo):
     profActual = incProf
     solucion=None
-    while( not(solucion) and profActual<=maxProf):
+    while(profActual<=maxProf):
         solucion = BusquedaBasica(problema,estrategia,profActual,grafo)
         profActual = profActual + incProf
+
     return solucion
 
 
@@ -110,7 +111,8 @@ problema = Problema(espacioEstados, Estado(812954564,[803292583,812954600],grafo
 del(tabla_nodos)
 
 start_time = time()
-solucion = BusquedaIncremental(problema,'A', 50,50, grafo)
+solucion = BusquedaIncremental(problema,'CosteUniforme', 50,50, grafo)
+
 elapsed_time = time() - start_time
 
 
