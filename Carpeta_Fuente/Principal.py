@@ -8,6 +8,8 @@ from Problema import Problema
 from frontera import Frontera
 from nodoBusqueda import nodoBusqueda
 import sys
+import gpxpy
+import gpxpy.gpx
 
 import osmapi
 
@@ -128,7 +130,26 @@ if not(solucion == None):
     with open("solucion.txt","w") as f:
         for sol in solucion:
             f.write(sol.__str__())
+    gpx = gpxpy.gpx.GPX()
+    gpx.name = "Mi gpx"
+    gpx_wpt = gpxpy.gpx.GPXWaypoint(latitude=46.57638889,longitude=8.89241667,name="LAGORETICO",elevation="2372")
+    gpx.waypoints.append(gpx_wpt)
 
+
+
+    gpx_track = gpxpy.gpx.GPXTrack(name="Mi gpx",number=1)
+    gpx.tracks.append(gpx_track)
+    gpx_segment = gpxpy.gpx.GPXTrackSegment()
+    gpx_track.segments.append(gpx_segment)
+
+    # Create points:
+    for sol in solucion:
+        gpx_segment.points.append(gpxpy.gpx.GPXTrackPoint(sol.estado.lat, sol.estado.lon, elevation=2376))
+
+    # You can add routes and waypoints, too...
+    with open("solucion.gpx","w") as f:
+        f.write(gpx.to_xml())
+    print('Created GPX:', gpx.to_xml())
 else:
     print("no hay solucion")
 
