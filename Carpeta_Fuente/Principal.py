@@ -108,12 +108,13 @@ def BusquedaIncremental(problema, estrategia, maxProf, incProf,grafo):
 espacioEstados=EspacioEstados(-3.9326000,38.9836000,-3.9217000,38.98839000)
 tabla_nodos,ways=lectura(espacioEstados)
 grafo=grafo(tabla_nodos,ways)
-problema = Problema(espacioEstados, Estado(812954564,[803292583,812954600],grafo.node[812954564]['lat'],grafo.node[812954564]['lon']))
+estado = Estado(812954564,[803292583,812954600],grafo.node[812954564]['lat'],grafo.node[812954564]['lon'])
+problema = Problema(espacioEstados, estado)
 
 del(tabla_nodos)
 
 start_time = time()
-solucion = BusquedaIncremental(problema,'CosteUniforme', 50,50, grafo)
+solucion = BusquedaIncremental(problema,'A', 50,50, grafo)
 
 elapsed_time = time() - start_time
 
@@ -132,7 +133,7 @@ if not(solucion == None):
             f.write(sol.__str__())
     gpx = gpxpy.gpx.GPX()
     gpx.name = "Mi gpx"
-    gpx_wpt = gpxpy.gpx.GPXWaypoint(latitude=46.57638889,longitude=8.89241667,name="LAGORETICO",elevation="2372")
+    gpx_wpt = gpxpy.gpx.GPXWaypoint(estado.lat,estado.lon,name=str(estado.localizacion),elevation="0")
     gpx.waypoints.append(gpx_wpt)
 
 
@@ -142,9 +143,10 @@ if not(solucion == None):
     gpx_segment = gpxpy.gpx.GPXTrackSegment()
     gpx_track.segments.append(gpx_segment)
 
+
     # Create points:
     for sol in solucion:
-        gpx_segment.points.append(gpxpy.gpx.GPXTrackPoint(sol.estado.lat, sol.estado.lon, elevation=2376))
+        gpx_segment.points.append(gpxpy.gpx.GPXTrackPoint(sol.estado.lat, sol.estado.lon, elevation=0))
 
     # You can add routes and waypoints, too...
     with open("solucion.gpx","w") as f:
