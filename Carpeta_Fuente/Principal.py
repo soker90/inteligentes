@@ -102,7 +102,36 @@ def BusquedaIncremental(problema, estrategia, maxProf, incProf,grafo):
 
     return solucion
 
+def menu():
+    print("#############################")
+    print("########### MENU ############")
+    print("#############################")
+    print("1. Busqueda en anchura")
+    print("2. Coste Uniforme")
+    print("3. Busqueda en profundidad")
+    print("4. Busqueda voraz")
+    print("5. Busqueda A*")
+    print("#############################")
+    print("Elige una opción")
+    opcion = input()
+    start_time = time()
 
+    if opcion == str(1):
+        solucion = BusquedaIncremental(problema,'anchura', 50,50, grafo)
+    elif opcion == str(2):
+        solucion = BusquedaIncremental(problema,'CosteUniforme', 50,50, grafo)
+    elif opcion == str(3):
+        solucion = BusquedaIncremental(problema,'profundidad', 50,50, grafo)
+    elif opcion == str(4):
+        solucion = BusquedaIncremental(problema,'voraz', 50,50, grafo)
+    elif opcion == str(5):
+        solucion = BusquedaIncremental(problema,'A', 50,50, grafo)
+
+    elapsed_time = time() - start_time
+
+    print("El tiempo de ejecucion es: " + str(elapsed_time))
+    print("La complejidad espacial es: " + str(problema.contador))
+    return solucion
 
 
 espacioEstados=EspacioEstados(-3.9326000,38.9836000,-3.9217000,38.98839000)
@@ -113,15 +142,8 @@ problema = Problema(espacioEstados, estado)
 
 del(tabla_nodos)
 
-start_time = time()
-solucion = BusquedaIncremental(problema,'A', 50,50, grafo)
+solucion = menu()
 
-elapsed_time = time() - start_time
-
-
-
-print("El tiempo de ejecucion es: " + str(elapsed_time))
-print("La complejidad espacial es: " + str(problema.contador))
 
 
 if not(solucion == None):
@@ -174,3 +196,5 @@ suc = EspacioEstados.sucesores(grafo, problema.estadoInicial)
 for key in suc:
    print(key[0] + " " + key[1].__str__() + " " + str(key[2]) )
 '''
+
+
