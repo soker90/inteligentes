@@ -133,8 +133,12 @@ if not(solucion == None):
             f.write(sol.__str__())
     gpx = gpxpy.gpx.GPX()
     gpx.name = "Mi gpx"
-    gpx_wpt = gpxpy.gpx.GPXWaypoint(estado.lat,estado.lon,name=str(estado.localizacion),elevation="0")
+    gpx_wpt = gpxpy.gpx.GPXWaypoint(estado.lat,estado.lon,elevation="0")
     gpx.waypoints.append(gpx_wpt)
+    for wpt in estado.objetivos:
+        nodo = grafo.node[wpt]
+        gpx_wpt = gpxpy.gpx.GPXWaypoint(nodo["lat"],nodo["lon"],elevation="0")
+        gpx.waypoints.append(gpx_wpt)
 
 
 
@@ -144,11 +148,10 @@ if not(solucion == None):
     gpx_track.segments.append(gpx_segment)
 
 
-    # Create points:
     for sol in solucion:
         gpx_segment.points.append(gpxpy.gpx.GPXTrackPoint(sol.estado.lat, sol.estado.lon, elevation=0))
 
-    # You can add routes and waypoints, too...
+
     with open("solucion.gpx","w") as f:
         f.write(gpx.to_xml())
     print('Created GPX:', gpx.to_xml())
