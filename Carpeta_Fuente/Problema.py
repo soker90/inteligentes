@@ -31,7 +31,6 @@ class Problema():
                 podar=self.poda(e[1], valor)
             elif estrategia=='profundidad':
                 valor=(1/(nodoAct.profundidad+1))
-                podar=self.poda(e[1], valor)
             elif estrategia=='voraz':
                 valor=self.Heuristica(nodoAct.estado, grafo)
                 podar=self.poda(e[1], valor)
