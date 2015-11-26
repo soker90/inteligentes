@@ -32,10 +32,10 @@ class Problema():
             elif estrategia=='profundidad':
                 valor=(1/(nodoAct.profundidad+1))
             elif estrategia=='voraz':
-                valor=self.Heuristica(nodoAct.estado, grafo)
+                valor=self.Heuristica(e[1], grafo)
                 podar=self.poda(e[1], valor)
             elif estrategia=='A':
-                valor=nodoAct.costo+ e[2] + self.Heuristica(nodoAct.estado, grafo)
+                valor=nodoAct.costo+ e[2] + self.Heuristica(e[1], grafo)
                 podar=self.poda(e[1], valor)
 
             if((nodoAct.profundidad < maxProf) and (podar==False)):
@@ -75,7 +75,11 @@ class Problema():
         costes=[]
         for objetivo in estado.objetivos:
             costes.append(distancia.dist(estado.lon,estado.lat,grafo.node[objetivo]['lon'],grafo.node[objetivo]['lat']))
-        return max(costes)
+        if not(costes.__sizeof__()==40):
+
+            return max(costes)
+        else:
+            return 0
 
 
 
