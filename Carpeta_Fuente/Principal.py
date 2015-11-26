@@ -176,7 +176,7 @@ if not(solucion == None):
 
     with open("solucion.gpx","w") as f:
         f.write(gpx.to_xml())
-    print('Created GPX:', gpx.to_xml())
+    print('Created GPX')
 else:
     print("no hay solucion")
 
