@@ -134,7 +134,7 @@ def menu():
     return solucion
 
 
-espacioEstados=EspacioEstados(-3.9326000,38.9836000,-3.9217000,38.98839000)
+espacioEstados=EspacioEstados(-3.93,38.983,-3.92,38.988)
 tabla_nodos,ways=lectura(espacioEstados)
 grafo=grafo(tabla_nodos,ways)
 estado = Estado(812954564,[803292583,812954600],grafo.node[812954564]['lat'],grafo.node[812954564]['lon'])
