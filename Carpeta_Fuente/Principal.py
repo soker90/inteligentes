@@ -129,7 +129,7 @@ def menu():
 
     elapsed_time = time() - start_time
 
-    print("El tiempo de ejecucion es: " + str(elapsed_time))
+    print("La complejidad temporal es: " + str(elapsed_time))
     print("La complejidad espacial es: " + str(problema.contador))
     return solucion
 
@@ -181,20 +181,6 @@ else:
     print("no hay solucion")
 
 
-'''
-print("nodos: " + str(grafo.nodes()))
-print("Inserte id de nodo")
-cadena = input()
-adyacentes=grafo.neighbors(int(cadena))
-print(str(adyacentes))
-cadena2=input()
-print(grafo.edge[cadena][cadena2]['weight'])
 
-print("Sucesores de: " + str(problema.estadoInicial.localizacion) + " son: " + str(problema.estadoInicial.objetivos))
-#espacio = EspacioEstados(grafo)
-suc = EspacioEstados.sucesores(grafo, problema.estadoInicial)
-for key in suc:
-   print(key[0] + " " + key[1].__str__() + " " + str(key[2]) )
-'''
 
 
