@@ -102,6 +102,34 @@ def BusquedaIncremental(problema, estrategia, maxProf, incProf,grafo):
 
     return solucion
 
+def crearProblema(nodoInicial,Nodos):
+    estado = Estado(nodoInicial,Nodos,grafo.node[nodoInicial]['lat'],grafo.node[nodoInicial]['lon'])
+    problema = Problema(espacioEstados, estado)
+
+    return problema,estado
+def nodosVisitantes():
+    print("#############################")
+    print("########### MENU ############")
+    print("#############################")
+    print("1. Complejidad pequeña")
+    print("2. Complejidad mediana")
+    print("3. Complejidad grande")
+    print("#############################")
+    print("Elige una opción")
+    opcion = input()
+
+    if opcion == str(1):
+        nodoInicial = 812954564
+        nodos = [803292583,812954600]
+    elif opcion == str(2):
+        nodoInicial = 812954564
+        nodos = [814771120,812955138]
+    elif opcion == str(3):
+        nodoInicial = 812954564
+        nodos = [803292583,812954600]
+
+    return nodoInicial,nodos
+
 def menu():
     print("#############################")
     print("########### MENU ############")
@@ -133,22 +161,23 @@ def menu():
     print("La complejidad espacial es: " + str(problema.contador))
     return solucion
 
+print("Introduce el nodo de origen")
+nodoInicial,nodos = nodosVisitantes()#812954564
+
 
 espacioEstados=EspacioEstados(-3.93,38.983,-3.92,38.988)
 tabla_nodos,ways=lectura(espacioEstados)
 grafo=grafo(tabla_nodos,ways)
-estado = Estado(812954564,[803292583,812954600],grafo.node[812954564]['lat'],grafo.node[812954564]['lon'])
-problema = Problema(espacioEstados, estado)
 
+
+problema,estado = crearProblema(nodoInicial,nodos)
 del(tabla_nodos)
-
 solucion = menu()
 
 
 
 if not(solucion == None):
     solucion.reverse()
-
 
     with open("solucion.txt","w") as f:
         for sol in solucion:
