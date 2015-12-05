@@ -126,7 +126,7 @@ def nodosVisitantes():
         nodos = [814771120,812955138]
     elif opcion == str(3):
         nodoInicial = 812954564
-        nodos = [803292583,812954600]
+        nodos = [833754795,816487453]
 
     return nodoInicial,nodos
 
