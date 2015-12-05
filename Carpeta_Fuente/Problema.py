@@ -14,7 +14,6 @@ class Problema():
 
 
     def EstadoMeta(self,Estado):
-
         return self.espacioEstados.objetivo(Estado)
 
     def CrearListaNodos(self,listaSucesores, nodoAct, maxProf, estrategia, grafo):

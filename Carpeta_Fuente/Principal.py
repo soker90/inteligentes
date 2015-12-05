@@ -71,6 +71,7 @@ def grafo(tabla_nodos,ways):
 
 def BusquedaBasica(problema, estrategia, maxProf,grafo):
     frontera=Frontera()
+    problema.tabla.clear()
     n_inicial=nodoBusqueda(0, None, problema.estadoInicial, 0,None,0,0)
     frontera.Insertar(n_inicial)
     solucion=False
@@ -96,7 +97,8 @@ def BusquedaBasica(problema, estrategia, maxProf,grafo):
 def BusquedaIncremental(problema, estrategia, maxProf, incProf,grafo):
     profActual = incProf
     solucion=None
-    while(profActual<=maxProf):
+
+    while((profActual<=maxProf)and(solucion==None)):
         solucion = BusquedaBasica(problema,estrategia,profActual,grafo)
         profActual = profActual + incProf
 
@@ -123,10 +125,10 @@ def nodosVisitantes():
         nodos = [803292583,812954600]
     elif opcion == str(2):
         nodoInicial = 812954564
-        nodos = [814771120,812955138]
+        nodos = [803292583,814770975]
     elif opcion == str(3):
         nodoInicial = 812954564
-        nodos = [833754795,816487453]
+        nodos = [836098125,812954600]
 
     return nodoInicial,nodos
 
@@ -142,18 +144,29 @@ def menu():
     print("#############################")
     print("Elige una opción")
     opcion = input()
+
+    print("#############################")
+    print("inserte profundidad maxima")
+    print("#############################")
+    prof=int(input())
+
+    print("#############################")
+    print("inserte el incremento de profundidad")
+    print("#############################")
+    profInc=int(input())
+
     start_time = time()
 
     if opcion == str(1):
-        solucion = BusquedaIncremental(problema,'anchura', 50,50, grafo)
+        solucion = BusquedaIncremental(problema,'anchura', prof,profInc, grafo)
     elif opcion == str(2):
-        solucion = BusquedaIncremental(problema,'CosteUniforme', 50,50, grafo)
+        solucion = BusquedaIncremental(problema,'CosteUniforme', prof,profInc, grafo)
     elif opcion == str(3):
-        solucion = BusquedaIncremental(problema,'profundidad', 50,50, grafo)
+        solucion = BusquedaIncremental(problema,'profundidad', prof,profInc, grafo)
     elif opcion == str(4):
-        solucion = BusquedaIncremental(problema,'voraz', 50,50, grafo)
+        solucion = BusquedaIncremental(problema,'voraz', prof,profInc, grafo)
     elif opcion == str(5):
-        solucion = BusquedaIncremental(problema,'A', 50,50, grafo)
+        solucion = BusquedaIncremental(problema,'A', prof,profInc, grafo)
 
     elapsed_time = time() - start_time
 
@@ -165,7 +178,7 @@ print("Introduce el nodo de origen")
 nodoInicial,nodos = nodosVisitantes()#812954564
 
 
-espacioEstados=EspacioEstados(-3.93,38.983,-3.92,38.988)
+espacioEstados=EspacioEstados(-3.93,38.980,-3.92,38.999)
 tabla_nodos,ways=lectura(espacioEstados)
 grafo=grafo(tabla_nodos,ways)
 
