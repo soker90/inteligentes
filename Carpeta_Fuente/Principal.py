@@ -175,7 +175,7 @@ def menu():
     return solucion
 
 print("Introduce el nodo de origen")
-nodoInicial,nodos = nodosVisitantes()#812954564
+nodoInicial,nodos = nodosVisitantes()
 
 
 espacioEstados=EspacioEstados(-3.93,38.980,-3.92,38.999)
