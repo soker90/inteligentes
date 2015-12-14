@@ -65,7 +65,12 @@ def grafo(tabla_nodos,ways):
                 G.node[nodo2]['lat']= nodo2Dat[0]
                 G.node[nodo2]['lon']= nodo2Dat[1]
                 G.add_edge(nodo1,nodo2)
-                G.edge[nodo1][nodo2]['weight']= distancia.dist(nodo1Dat[1],nodo1Dat[0],nodo2Dat[1],nodo2Dat[0])
+
+                if(nodo1%2)==(nodo2%2):
+                    G.edge[nodo1][nodo2]['weight']= 2*distancia.dist(nodo1Dat[1],nodo1Dat[0],nodo2Dat[1],nodo2Dat[0])
+                else:
+                    G.edge[nodo1][nodo2]['weight']= distancia.dist(nodo1Dat[1],nodo1Dat[0],nodo2Dat[1],nodo2Dat[0])
+
                 i=i+1
     return G
 
@@ -121,8 +126,8 @@ def nodosVisitantes():
     opcion = input()
 
     if opcion == str(1):
-        nodoInicial = 812954564
-        nodos = [803292583,812954600]
+        nodoInicial = 804689308
+        nodos = [765309500, 522198143, 522198112, 522198126]
     elif opcion == str(2):
         nodoInicial = 812954564
         nodos = [803292583,814770975]
@@ -178,7 +183,7 @@ print("Introduce el nodo de origen")
 nodoInicial,nodos = nodosVisitantes()
 
 
-espacioEstados=EspacioEstados(-3.93,38.980,-3.92,38.999)
+espacioEstados=EspacioEstados(-3.9379,38.9808,-3.9145,38.9931)
 tabla_nodos,ways=lectura(espacioEstados)
 grafo=grafo(tabla_nodos,ways)
 

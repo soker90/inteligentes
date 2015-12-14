@@ -37,6 +37,7 @@ class Problema():
                 valor=nodoAct.costo+ e[2] + self.Heuristica(e[1], grafo)
                 podar=self.poda(e[1], valor)
 
+
             if((nodoAct.profundidad < maxProf) and (podar==False)):
 
                 ListaNodos.append(nodoBusqueda(self.contador, nodoAct, e[1], (e[2]+nodoAct.costo), e[0], nodoAct.profundidad+1, valor))
