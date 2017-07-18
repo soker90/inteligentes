@@ -1,1 +1,2 @@
-# inteligentes
+# Práctica de Sistemas Inteligentes
+Generador de rutas que partiendo de un lugar de Ciudad Real pasa por un conjunto de puntos concretos. El generador de rutas es capaz de establecer estas rutas mediante varias estrategias. En primer lugar, se realiza sin información, aplicando las estrategias de búsqueda en anchura, profundidad, profundidad acotada y profundidad iterativa, y en segundo lugar con información, aplicando las estrategias de costo uniforme y heurísticas como voraz y A*. Cada ruta va acompañada con una valoración de su complejidad espacial, temporal y costo, considerando este como la distancia recorrida en metros.
